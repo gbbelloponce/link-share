@@ -1,14 +1,7 @@
 <script lang="ts">
-	import { auth } from '$lib/config/firebase';
-	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-
-	const signInWithGoogle = async () => {
-		const provider = new GoogleAuthProvider();
-		const user = await signInWithPopup(auth, provider);
-		console.log(user);
-	};
+	import { logInWithGoogle } from '$lib/api/auth';
 </script>
 
 <h2>Login</h2>
 
-<button class="btn btn-primary" on:click={signInWithGoogle}>Sign In With Google</button>
+<button class="btn btn-primary" on:click={logInWithGoogle}>Log In With Google</button>
