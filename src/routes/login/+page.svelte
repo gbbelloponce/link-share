@@ -1,7 +1,12 @@
 <script lang="ts">
-	import { logInWithGoogle } from '$lib/api/auth';
+	import { user } from '$lib/store/user';
+	import { logInWithGoogle, logOut } from '$lib/api/auth';
 </script>
 
-<h2>Login</h2>
-
-<button class="btn btn-primary" on:click={logInWithGoogle}>Log In With Google</button>
+{#if $user}
+	<h2 class="card-title">Welcome, {$user.displayName}</h2>
+	<p class="text-center text-success">You are logged in</p>
+	<button class="btn btn-secondary" on:click={logOut}>Log out</button>
+{:else}
+	<button class="btn btn-primary" on:click={logInWithGoogle}>Sign in with Google</button>
+{/if}
