@@ -11,15 +11,20 @@
 
 	let debounceTimer: NodeJS.Timeout;
 
+	const re = /^(?=[a-zA-Z0-9._]{3,16}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+	$: isUsernameValid = username?.length > 2 && username.length < 16 && re.test(username);
+	$: isUsernameEmpty = username.length < 1;
+	$: isUsernameTaken = isUsernameValid && !isUsernameAvailable && !isLoading;
+
 	const checkUsernameAvailability = async () => {
-		if (!username) return (isUsernameAvailable = false);
+		username = username.toLocaleUpperCase(); // Converts to upper case
 
-		username = username.toLocaleUpperCase();
+		if (!isUsernameValid || isUsernameEmpty) return;
 
+		isLoading = true;
 		isUsernameAvailable = false;
 		clearTimeout(debounceTimer);
 
-		isLoading = true;
 		debounceTimer = setTimeout(async () => {
 			const ref = doc(db, 'usernames', username);
 			const exists = await getDoc(ref).then((doc) => doc.exists());
@@ -30,8 +35,9 @@
 	};
 
 	const confirmUsername = async () => {
-		isLoading = true;
+		if (!isUsernameAvailable || !isUsernameValid || isUsernameEmpty) return;
 
+		isLoading = true;
 		const batch = writeBatch(db);
 		batch.set(doc(db, 'usernames', username), { uid: $user!.uid });
 		batch.set(doc(db, 'users', $user!.uid), {
@@ -49,22 +55,39 @@
 </script>
 
 <AuthCheck>
-	<h2>Username</h2>
 	<form class="w-2/5" on:submit|preventDefault={confirmUsername}>
 		<input
 			class="input w-full"
+			name="username"
 			type="text"
 			placeholder="Username"
 			bind:value={username}
 			on:input={checkUsernameAvailability}
+			class:input-error={!isUsernameValid || isUsernameEmpty}
+			class:input-warning={isUsernameTaken}
+			class:input-success={isUsernameAvailable && isUsernameValid && !isLoading}
 		/>
+		<label class="label" for="username">
+			{#if !isLoading && isUsernameValid && !isUsernameAvailable}
+				<span class="label-text-alt text-warning">@{username} is not available</span>
+			{/if}
 
-		{#if isLoading}
-			<span class="my-3 loading loading-spinner text-primary" />
-		{:else if !isUsernameAvailable}
-			<p class="my-3 text-red-400">Username not available</p>
-		{:else}
-			<button class="my-3 btn btn-success">Confirm Username @{username}</button>
+			{#if !isLoading && !isUsernameValid}
+				<span class="label-text-alt text-error"
+					>must be 3-16 characters long, alphanumeric only</span
+				>
+			{/if}
+		</label>
+
+		{#if isLoading && !isUsernameEmpty && isUsernameValid}
+			<button class="btn btn-success">
+				<span class="loading loading-spinner" />
+				Loading
+			</button>
+		{/if}
+
+		{#if !isLoading && isUsernameAvailable && isUsernameValid}
+			<button class="btn btn-success">Confirm Username @{username}</button>
 		{/if}
 	</form>
 </AuthCheck>
