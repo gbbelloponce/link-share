@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { doc, getDoc } from 'firebase/firestore';
+	import { doc, getDoc, writeBatch } from 'firebase/firestore';
 
+	import { user } from '$lib/store/user';
 	import { db } from '$lib/config/firebase';
 	import AuthCheck from '$lib/components/AuthCheck.svelte';
 
@@ -12,6 +13,8 @@
 
 	const checkUsernameAvailability = async () => {
 		if (!username) return (isUsernameAvailable = false);
+
+		username = username.toLocaleUpperCase();
 
 		isUsernameAvailable = false;
 		clearTimeout(debounceTimer);
@@ -26,7 +29,23 @@
 		}, 500);
 	};
 
-	const confirmUsername = async () => {};
+	const confirmUsername = async () => {
+		isLoading = true;
+
+		const batch = writeBatch(db);
+		batch.set(doc(db, 'usernames', username), { uid: $user!.uid });
+		batch.set(doc(db, 'users', $user!.uid), {
+			username,
+			photoURL: $user!.photoURL,
+			published: true,
+			bio: 'Hello there! Here are all my links',
+			links: [{ title: 'Test Link', url: 'https://google.com', icon: 'custom' }]
+		});
+
+		await batch.commit();
+
+		isLoading = false;
+	};
 </script>
 
 <AuthCheck>
