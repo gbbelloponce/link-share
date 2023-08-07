@@ -5,7 +5,7 @@ import { onAuthStateChanged, type User } from 'firebase/auth';
 /**
  * @returns a store with the current firebase user
  */
-const userStore = () => {
+export const authFirebaseUserStore = () => {
 	let unsubscribe: () => void;
 
 	if (!auth || !globalThis.window) {
@@ -17,8 +17,8 @@ const userStore = () => {
 	}
 
 	const { subscribe } = writable(auth?.currentUser ?? null, (set) => {
-		unsubscribe = onAuthStateChanged(auth, (user) => {
-			set(user);
+		unsubscribe = onAuthStateChanged(auth, (authFirebaseUser) => {
+			set(authFirebaseUser);
 		});
 
 		return () => unsubscribe();
@@ -28,5 +28,3 @@ const userStore = () => {
 		subscribe
 	};
 };
-
-export const user = userStore();

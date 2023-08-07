@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { user } from '$lib/store/user';
+	import { authFirebaseUserData } from '$lib/data/authFirebaseUserData';
 </script>
 
-{#if $user}
+{#if $authFirebaseUserData}
 	<slot />
 {:else}
 	<p class="text-error my-3">You must be logged in to view this page</p>
