@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { doc, getDoc, writeBatch } from 'firebase/firestore';
 
-	import { user } from '$lib/store/user';
 	import { db } from '$lib/config/firebase';
+	import { userData } from '$lib/data/userData';
 	import AuthCheck from '$lib/components/AuthCheck.svelte';
+	import { authFirebaseUserData } from '$lib/data/authFirebaseUserData';
 
 	let username = '';
 	let isLoading = false;
@@ -39,10 +40,10 @@
 
 		isLoading = true;
 		const batch = writeBatch(db);
-		batch.set(doc(db, 'usernames', username), { uid: $user!.uid });
-		batch.set(doc(db, 'users', $user!.uid), {
+		batch.set(doc(db, 'usernames', username), { uid: $authFirebaseUserData!.uid });
+		batch.set(doc(db, 'users', $authFirebaseUserData!.uid), {
 			username,
-			photoURL: $user!.photoURL,
+			photoURL: $authFirebaseUserData!.photoURL,
 			published: true,
 			bio: 'Hello there! Here are all my links',
 			links: [{ title: 'Test Link', url: 'https://google.com', icon: 'custom' }]
@@ -55,39 +56,47 @@
 </script>
 
 <AuthCheck>
-	<form class="w-2/5" on:submit|preventDefault={confirmUsername}>
-		<input
-			class="input w-full"
-			name="username"
-			type="text"
-			placeholder="Username"
-			bind:value={username}
-			on:input={checkUsernameAvailability}
-			class:input-error={!isUsernameValid || isUsernameEmpty}
-			class:input-warning={isUsernameTaken}
-			class:input-success={isUsernameAvailable && isUsernameValid && !isLoading}
-		/>
-		<label class="label" for="username">
-			{#if !isLoading && isUsernameValid && !isUsernameAvailable}
-				<span class="label-text-alt text-warning">@{username} is not available</span>
+	{#if $userData?.username}
+		<p class="card-title">
+			Your username is<span class="text-success">@{$userData?.username}</span>
+		</p>
+		<p class="">(Usernames cannot be changed)</p>
+		<a class="btn btn-primary" href="/login/photo">Upload Profile Image</a>
+	{:else}
+		<form class="w-2/5" on:submit|preventDefault={confirmUsername}>
+			<input
+				class="input w-full"
+				name="username"
+				type="text"
+				placeholder="Username"
+				bind:value={username}
+				on:input={checkUsernameAvailability}
+				class:input-error={!isUsernameValid || isUsernameEmpty}
+				class:input-warning={isUsernameTaken}
+				class:input-success={isUsernameAvailable && isUsernameValid && !isLoading}
+			/>
+			<label class="label" for="username">
+				{#if !isLoading && isUsernameValid && !isUsernameAvailable}
+					<span class="label-text-alt text-warning">@{username} is not available</span>
+				{/if}
+
+				{#if !isLoading && !isUsernameValid}
+					<span class="label-text-alt text-error"
+						>must be 3-16 characters long, alphanumeric only</span
+					>
+				{/if}
+			</label>
+
+			{#if isLoading && !isUsernameEmpty && isUsernameValid}
+				<button class="btn btn-success">
+					<span class="loading loading-spinner" />
+					Loading
+				</button>
 			{/if}
 
-			{#if !isLoading && !isUsernameValid}
-				<span class="label-text-alt text-error"
-					>must be 3-16 characters long, alphanumeric only</span
-				>
+			{#if !isLoading && isUsernameAvailable && isUsernameValid}
+				<button class="btn btn-success">Confirm Username @{username}</button>
 			{/if}
-		</label>
-
-		{#if isLoading && !isUsernameEmpty && isUsernameValid}
-			<button class="btn btn-success">
-				<span class="loading loading-spinner" />
-				Loading
-			</button>
-		{/if}
-
-		{#if !isLoading && isUsernameAvailable && isUsernameValid}
-			<button class="btn btn-success">Confirm Username @{username}</button>
-		{/if}
-	</form>
+		</form>
+	{/if}
 </AuthCheck>
