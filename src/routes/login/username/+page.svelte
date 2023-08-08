@@ -61,7 +61,6 @@
 			Your username is<span class="text-success">@{$userData?.username}</span>
 		</p>
 		<p class="">(Usernames cannot be changed)</p>
-		<a class="btn btn-primary" href="/login/photo">Upload Profile Image</a>
 	{:else}
 		<form class="w-2/5" on:submit|preventDefault={confirmUsername}>
 			<input
