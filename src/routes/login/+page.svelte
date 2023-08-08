@@ -4,9 +4,9 @@
 </script>
 
 {#if $authFirebaseUserData}
-	<h2 class="card-title">Welcome, {$authFirebaseUserData.displayName}</h2>
-	<p class="text-center text-success">You are logged in</p>
-	<button class="btn btn-secondary" on:click={logOut}>Log out</button>
+	<h2 class="card-title">Welcome,</h2>
+	<span class="card-title text-success">{$authFirebaseUserData.displayName}</span>
+	<button class="btn btn-secondary mt-3" on:click={logOut}>Log out</button>
 {:else}
 	<button class="btn btn-primary" on:click={logInWithGoogle}>Log in with Google</button>
 {/if}

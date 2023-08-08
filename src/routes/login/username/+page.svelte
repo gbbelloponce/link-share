@@ -57,10 +57,9 @@
 
 <AuthCheck>
 	{#if $userData?.username}
-		<p class="card-title">
-			Your username is<span class="text-success">@{$userData?.username}</span>
-		</p>
-		<p class="">(Usernames cannot be changed)</p>
+		<h2 class="card-title">Your username is</h2>
+		<span class="card-title text-success">@{$userData?.username}</span>
+		<p>(Usernames cannot be changed)</p>
 	{:else}
 		<form class="w-2/5" on:submit|preventDefault={confirmUsername}>
 			<input
