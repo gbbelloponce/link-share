@@ -18,7 +18,7 @@
 	$: isUsernameTaken = isUsernameValid && !isUsernameAvailable && !isLoading;
 
 	const checkUsernameAvailability = async () => {
-		username = username.toLocaleUpperCase(); // Converts to upper case
+		username = username.toLocaleLowerCase(); // Converts to lower case
 
 		if (!isUsernameValid || isUsernameEmpty) return;
 
@@ -61,7 +61,7 @@
 		<span class="card-title text-success">@{$userData?.username}</span>
 		<p>(Usernames cannot be changed)</p>
 	{:else}
-		<form class="w-2/5" on:submit|preventDefault={confirmUsername}>
+		<form class="w-full max-w-xs" on:submit|preventDefault={confirmUsername}>
 			<input
 				class="input w-full"
 				name="username"
@@ -93,7 +93,9 @@
 			{/if}
 
 			{#if !isLoading && isUsernameAvailable && isUsernameValid}
-				<button class="btn btn-success">Confirm Username @{username}</button>
+				<button class="btn btn-success"
+					>Confirm Username<span class="-ml-1 lowercase">@{username}</span></button
+				>
 			{/if}
 		</form>
 	{/if}
