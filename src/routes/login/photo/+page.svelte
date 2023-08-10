@@ -27,7 +27,7 @@
 <AuthCheck>
 	<h2 class="card-title">Upload a profile picture</h2>
 
-	<form class="max-w-screen-md w-full">
+	<form class="w-full">
 		<div class="form-control w-full max-w-xs mx-auto text-center gap-3">
 			<div>
 				{#if isUploading}
