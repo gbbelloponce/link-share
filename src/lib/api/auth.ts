@@ -4,10 +4,9 @@ import { auth } from '../config/firebase';
 
 export const logInWithGoogle = async () => {
 	const provider = new GoogleAuthProvider();
-	const user = await signInWithPopup(auth, provider);
-	console.log(user);
+	await signInWithPopup(auth, provider);
 };
 
-export const logOut = () => {
-	signOut(auth);
+export const logOut = async () => {
+	await signOut(auth);
 };
