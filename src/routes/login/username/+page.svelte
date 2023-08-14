@@ -59,7 +59,7 @@
 	{#if $userData?.username}
 		<h2 class="card-title">Your username is</h2>
 		<span class="card-title text-success">@{$userData?.username}</span>
-		<p>(Usernames cannot be changed)</p>
+		<a href="/{$userData.username}/edit" class="btn btn-primary mt-3">Set Up profile</a>
 	{:else}
 		<form class="w-full max-w-xs" on:submit|preventDefault={confirmUsername}>
 			<input

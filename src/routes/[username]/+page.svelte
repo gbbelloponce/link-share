@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>@{data.username} Links</title>
+	<title>@{data.username}</title>
 	<meta name="description" content={data.bio} />
 </svelte:head>
 
