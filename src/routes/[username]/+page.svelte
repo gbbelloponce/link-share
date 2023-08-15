@@ -11,7 +11,7 @@
 </svelte:head>
 
 <main class="prose w-full md:max-w-2xl text-center mx-auto mt-5 flex flex-col gap-4">
-	<h1 class="text-3xl font-bold text-purple-500">@{data.username}</h1>
+	<h1 class="text-3xl font-extrabold text-purple-500">@{data.username}</h1>
 
 	<img src={data.photoURL} alt="photoURL" width="256" height="256" class="mx-auto rounded-lg" />
 
