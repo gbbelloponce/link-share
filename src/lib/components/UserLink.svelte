@@ -8,6 +8,6 @@
 	href={url}
 	class="stack text-center bg-base-300 flex justify-center items-center p-3 rounded-lg not-prose no-underline"
 >
-	<img src={`/${icon}.png`} alt={icon} width="32" height="32" class="w-8" />
+	<img src={`/icons/${icon}.png`} alt={icon} width="32" height="32" class="w-8" />
 	<span class="text-lg text-white font-bold">{title}</span>
 </a>
