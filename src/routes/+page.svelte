@@ -19,11 +19,11 @@
 
 {#if showSuccessAlert}
 	<div
-		class="absolute top-5 left-0 right-0 mx-auto flex justify-center items-center"
+		class="absolute bottom-5 left-0 right-0 mx-auto flex justify-center items-center"
 		in:fly={{ x: '-100%', duration: 500 }}
 		out:fly={{ x: '100%', duration: 500 }}
 	>
-		<div class="w-1/3 alert alert-success">
+		<div class="flex justify-center sm:w-1/3 alert alert-success">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="stroke-current shrink-0 h-6 w-6"
@@ -36,7 +36,7 @@
 					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 				/></svg
 			>
-			<span>Your link has been copied to your clipboard!</span>
+			<span>Copied to your clipboard!</span>
 		</div>
 	</div>
 {/if}
