@@ -44,9 +44,12 @@
 		batch.set(doc(db, 'users', $authFirebaseUserData!.uid), {
 			username,
 			photoURL: $authFirebaseUserData!.photoURL,
-			published: true,
+			public: true,
 			bio: 'Hello there! Here are all my links',
-			links: [{ title: 'Test Link', url: 'https://google.com', icon: 'custom' }]
+			links: [
+				{ title: 'Svelte', url: 'https://svelte.dev/', icon: 'custom' },
+				{ title: 'Firebase', url: 'https://firebase.google.com/', icon: 'custom' }
+			]
 		});
 
 		await batch.commit();
