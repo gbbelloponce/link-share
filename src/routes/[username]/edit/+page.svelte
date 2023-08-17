@@ -1,7 +1,15 @@
 <script lang="ts">
+	import { doc, updateDoc } from 'firebase/firestore';
+	import { db } from '$lib/config/firebase';
 	import { userData } from '$lib/data/userData';
+	import { authFirebaseUserData } from '$lib/data/authFirebaseUserData';
 
-	const toggleProfileStatus = () => {};
+	const toggleProfileStatus = async () => {
+		const userRef = doc(db, 'users', $authFirebaseUserData!.uid);
+		await updateDoc(userRef, {
+			public: !$userData?.public
+		});
+	};
 </script>
 
 {#if $userData}
