@@ -1,7 +1,31 @@
 <script lang="ts">
-	import { userData } from '$lib/data/userData';
+	import { doc, updateDoc } from "firebase/firestore";
 
-	const toggleProfileStatus = () => {};
+	import { db } from '$lib/config/firebase';
+	import { userData } from '$lib/data/userData';
+	import { authFirebaseUserData } from '$lib/data/authFirebaseUserData';
+
+	let username = $userData?.username;
+	let bio = $userData?.bio;
+
+	let debounceTimer: NodeJS.Timeout;
+
+	const toggleProfileStatus = async () => {
+		const userRef = doc(db, "users", $authFirebaseUserData!.uid);
+		await updateDoc(userRef, {
+			public: !$userData?.public,
+		});
+	};
+
+	const saveBio = () => {
+		clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(async () => {
+			const userRef = doc(db, 'users', $authFirebaseUserData!.uid);
+			await updateDoc(userRef, {
+				bio
+			});
+		}, 1000);
+	};
 </script>
 
 {#if $userData}
@@ -14,7 +38,7 @@
 			id="username"
 			name="username"
 			disabled
-			bind:value={$userData.username}
+			bind:value={username}
 			type="text"
 			placeholder="Type here"
 			class="input"
@@ -23,8 +47,19 @@
 			<span class="label-text-alt">(Usernames cannot be changed)</span>
 		</label>
 
+		<label class="label mt-5" for="bio" >
+			<span class="label-text">Bio</span>
+		</label>
+		<textarea
+			id="bio"
+			name="bio"
+			class="textarea textarea-bordered"
+			bind:value={bio}
+			on:input={saveBio}
+		/>
+
 		<div
-			class="mt-5 tooltip flex justify-center gap-3"
+			class="mt-10 tooltip flex justify-center gap-3"
 			data-tip="If it is public, the world can see your profile"
 		>
 			<label for="profile-status">{$userData.public ? 'Public' : 'Private'} Profile</label>
