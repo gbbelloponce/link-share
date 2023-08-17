@@ -97,7 +97,7 @@
 
 			{#if !isLoading && isUsernameAvailable && isUsernameValid}
 				<button class="btn btn-success"
-					>Confirm Username<span class="-ml-1 lowercase">@{username}</span></button
+					>Confirm<span class="-ml-1 lowercase">@{username}</span></button
 				>
 			{/if}
 		</form>
