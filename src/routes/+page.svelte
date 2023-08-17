@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	
 	import { page } from '$app/stores';
 	import { userData } from '$lib/data/userData';
@@ -22,10 +22,9 @@
 {#if showSuccessAlert}
 	<div
 		class="absolute bottom-5 left-0 right-0 mx-auto flex justify-center items-center"
-		in:fly={{ x: '-100%', duration: 500 }}
-		out:fly={{ x: '100%', duration: 500 }}
+		transition:fade={{ delay: 250, duration: 300 }}
 	>
-		<div class="flex justify-center sm:w-1/3 alert alert-success">
+		<div class="flex justify-center w-11/12 sm:w-1/3 alert alert-success">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="stroke-current shrink-0 h-6 w-6"
