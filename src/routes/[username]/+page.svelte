@@ -19,7 +19,7 @@
 
 	<ul class="list-none p-2 mx-1">
 		{#each data.links as link}
-			<li>
+			<li class="my-2">
 				<UserLink {...link} />
 			</li>
 		{/each}
