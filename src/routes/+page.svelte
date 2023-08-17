@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
+	
+	import { page } from '$app/stores';
 	import { userData } from '$lib/data/userData';
 
 	let showSuccessAlert = false;
 
 	const copyProfileLink = () => {
-		navigator.clipboard.writeText(`http://localhost:5173/${$userData!.username}`);
+		navigator.clipboard.writeText(`${$page.url.origin}/${$userData!.username}`);
 		showSuccessAlert = true;
 		setTimeout(() => {
 			showSuccessAlert = false;
