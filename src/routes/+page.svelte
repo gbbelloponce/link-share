@@ -1,11 +1,11 @@
-<script lang="ts">	
+<script lang="ts">
 	import { page } from '$app/stores';
 	import { userData } from '$lib/data/userData';
-	import { triggerAlert } from "$lib/helpers/alertHelper";
+	import { triggerAlert } from '$lib/helpers/alertHelper';
 
 	const copyProfileLink = () => {
 		navigator.clipboard.writeText(`${$page.url.origin}/${$userData!.username}`);
-		triggerAlert("success", "Copied to the clipboard!");
+		triggerAlert('success', 'Copied to the clipboard!');
 	};
 </script>
 
