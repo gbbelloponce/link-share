@@ -1,46 +1,17 @@
-<script lang="ts">
-	import { fade } from 'svelte/transition';
-	
+<script lang="ts">	
 	import { page } from '$app/stores';
 	import { userData } from '$lib/data/userData';
-
-	let showSuccessAlert = false;
+	import { triggerAlert } from "$lib/helpers/alertHelper";
 
 	const copyProfileLink = () => {
 		navigator.clipboard.writeText(`${$page.url.origin}/${$userData!.username}`);
-		showSuccessAlert = true;
-		setTimeout(() => {
-			showSuccessAlert = false;
-		}, 3000);
+		triggerAlert("success", "Copied to the clipboard!");
 	};
 </script>
 
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
-
-{#if showSuccessAlert}
-	<div
-		class="absolute bottom-5 left-0 right-0 mx-auto flex justify-center items-center"
-		transition:fade={{ delay: 250, duration: 300 }}
-	>
-		<div class="flex justify-center w-11/12 sm:w-1/3 alert alert-success">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="stroke-current shrink-0 h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-				/></svg
-			>
-			<span>Copied to your clipboard!</span>
-		</div>
-	</div>
-{/if}
 
 <main class="flex-1">
 	<div class="hero my-10">
