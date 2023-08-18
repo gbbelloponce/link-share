@@ -8,7 +8,10 @@
 		class="absolute bottom-5 left-0 right-0 mx-auto flex justify-center items-center"
 		transition:fade={{ delay: $alertStore.animationDelay, duration: $alertStore.animationDuration }}
 	>
-		<div class="flex justify-center w-11/12 sm:w-1/3 alert alert-{$alertStore.type}">
+		<div
+			class="flex justify-center w-11/12 sm:w-1/3 alert"
+			class:alert-success={$alertStore.type === 'success'}
+		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="stroke-current shrink-0 h-6 w-6"
