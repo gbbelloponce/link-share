@@ -7,8 +7,14 @@ interface UserData {
 	username: string;
 	bio: string;
 	photoURL: string;
-	links: unknown[];
+	links: UserLink[];
 	public: boolean;
+}
+
+interface UserLink {
+	icon: string;
+	title: string;
+	url: string;
 }
 
 export const userData: Readable<UserData | null> = derived(
