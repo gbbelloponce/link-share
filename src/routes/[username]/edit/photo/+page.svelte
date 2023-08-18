@@ -21,31 +21,29 @@
 	};
 </script>
 
-{#if $userData}
-	<h2 class="card-title mb-5">Photo</h2>
+<h2 class="card-title mb-5">Photo</h2>
 
-	<form class="w-full">
-		<div class="form-control w-full max-w-xs mx-auto text-center gap-3">
-			<div>
-				{#if isUploading}
-					<span class="loading loading-spinner loading-lg text-primary" />
-				{:else}
-					<img
-						src={previewURL || $userData?.photoURL}
-						alt="photoURL"
-						width="256"
-						height="256"
-						class="mx-auto"
-					/>
-				{/if}
-			</div>
-			<input
-				on:change={upload}
-				name="photoURL"
-				type="file"
-				class="file-input file-input-bordered w-full max-w-xs"
-				accept="image/png, image/jpeg, image/gif, image/webp"
-			/>
+<form class="w-full">
+	<div class="form-control w-full max-w-sm mx-auto text-center gap-3">
+		<div>
+			{#if isUploading}
+				<span class="loading loading-spinner loading-lg text-primary" />
+			{:else}
+				<img
+					src={previewURL || $userData?.photoURL}
+					alt="photoURL"
+					width="256"
+					height="256"
+					class="mx-auto"
+				/>
+			{/if}
 		</div>
-	</form>
-{/if}
+		<input
+			on:change={upload}
+			name="photoURL"
+			type="file"
+			class="file-input file-input-bordered w-full max-w-xs"
+			accept="image/png, image/jpeg, image/gif, image/webp"
+		/>
+	</div>
+</form>

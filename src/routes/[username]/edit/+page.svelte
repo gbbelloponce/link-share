@@ -28,49 +28,47 @@
 	};
 </script>
 
-{#if $userData}
-	<h2 class="card-title mb-5">General Settings</h2>
-	<form class="form-control w-full max-w-xs">
-		<label class="label" for="username">
-			<span class="label-text">Username</span>
-		</label>
+<h2 class="card-title mb-5">General Settings</h2>
+<form class="form-control w-full max-w-sm">
+	<label class="label" for="username">
+		<span class="label-text">Username</span>
+	</label>
+	<input
+		id="username"
+		name="username"
+		disabled
+		bind:value={username}
+		type="text"
+		placeholder="Type here"
+		class="input"
+	/>
+	<label class="label justify-center" for="username">
+		<span class="label-text-alt">(Usernames cannot be changed)</span>
+	</label>
+
+	<label class="label mt-5" for="bio">
+		<span class="label-text">Bio</span>
+	</label>
+	<textarea
+		id="bio"
+		name="bio"
+		class="textarea textarea-bordered"
+		bind:value={bio}
+		on:input={saveBio}
+	/>
+
+	<div
+		class="mt-10 tooltip flex justify-center gap-3"
+		data-tip="If it is public, the world can see your profile"
+	>
+		<label for="profile-status">{$userData?.public ? 'Public' : 'Private'} Profile</label>
 		<input
-			id="username"
-			name="username"
-			disabled
-			bind:value={username}
-			type="text"
-			placeholder="Type here"
-			class="input"
+			id="profile-status"
+			name="profile-status"
+			type="checkbox"
+			class="toggle toggle-success"
+			checked={$userData?.public}
+			on:change={toggleProfileStatus}
 		/>
-		<label class="label justify-center" for="username">
-			<span class="label-text-alt">(Usernames cannot be changed)</span>
-		</label>
-
-		<label class="label mt-5" for="bio">
-			<span class="label-text">Bio</span>
-		</label>
-		<textarea
-			id="bio"
-			name="bio"
-			class="textarea textarea-bordered"
-			bind:value={bio}
-			on:input={saveBio}
-		/>
-
-		<div
-			class="mt-10 tooltip flex justify-center gap-3"
-			data-tip="If it is public, the world can see your profile"
-		>
-			<label for="profile-status">{$userData.public ? 'Public' : 'Private'} Profile</label>
-			<input
-				id="profile-status"
-				name="profile-status"
-				type="checkbox"
-				class="toggle toggle-success"
-				checked={$userData.public}
-				on:change={toggleProfileStatus}
-			/>
-		</div>
-	</form>
-{/if}
+	</div>
+</form>
