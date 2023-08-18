@@ -1,18 +1,5 @@
 <script lang="ts">
-<<<<<<< HEAD
 	import { doc, updateDoc } from 'firebase/firestore';
-	import { db } from '$lib/config/firebase';
-	import { userData } from '$lib/data/userData';
-	import { authFirebaseUserData } from '$lib/data/authFirebaseUserData';
-
-	const toggleProfileStatus = async () => {
-		const userRef = doc(db, 'users', $authFirebaseUserData!.uid);
-		await updateDoc(userRef, {
-			public: !$userData?.public
-		});
-	};
-=======
-	import { doc, updateDoc } from "firebase/firestore";
 
 	import { db } from '$lib/config/firebase';
 	import { userData } from '$lib/data/userData';
@@ -24,9 +11,9 @@
 	let debounceTimer: NodeJS.Timeout;
 
 	const toggleProfileStatus = async () => {
-		const userRef = doc(db, "users", $authFirebaseUserData!.uid);
+		const userRef = doc(db, 'users', $authFirebaseUserData!.uid);
 		await updateDoc(userRef, {
-			public: !$userData?.public,
+			public: !$userData?.public
 		});
 	};
 
@@ -39,7 +26,6 @@
 			});
 		}, 1000);
 	};
->>>>>>> 38d3f1f6d0e3b7f60ceb5b893c67e613fe80cc36
 </script>
 
 {#if $userData}
@@ -61,7 +47,7 @@
 			<span class="label-text-alt">(Usernames cannot be changed)</span>
 		</label>
 
-		<label class="label mt-5" for="bio" >
+		<label class="label mt-5" for="bio">
 			<span class="label-text">Bio</span>
 		</label>
 		<textarea
