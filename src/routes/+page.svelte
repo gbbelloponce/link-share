@@ -1,45 +1,17 @@
-<script lang="ts">
-	import { fly } from 'svelte/transition';
+<script lang="ts">	
+	import { page } from '$app/stores';
 	import { userData } from '$lib/data/userData';
-
-	let showSuccessAlert = false;
+	import { triggerAlert } from "$lib/helpers/alertHelper";
 
 	const copyProfileLink = () => {
-		navigator.clipboard.writeText(`http://localhost:5173/${$userData!.username}`);
-		showSuccessAlert = true;
-		setTimeout(() => {
-			showSuccessAlert = false;
-		}, 3000);
+		navigator.clipboard.writeText(`${$page.url.origin}/${$userData!.username}`);
+		triggerAlert("success", "Copied to the clipboard!");
 	};
 </script>
 
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
-
-{#if showSuccessAlert}
-	<div
-		class="absolute bottom-5 left-0 right-0 mx-auto flex justify-center items-center"
-		in:fly={{ x: '-100%', duration: 500 }}
-		out:fly={{ x: '100%', duration: 500 }}
-	>
-		<div class="flex justify-center sm:w-1/3 alert alert-success">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="stroke-current shrink-0 h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-				/></svg
-			>
-			<span>Copied to your clipboard!</span>
-		</div>
-	</div>
-{/if}
 
 <main class="flex-1">
 	<div class="hero my-10">
