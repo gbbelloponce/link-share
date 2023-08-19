@@ -42,7 +42,7 @@
 			on:change={upload}
 			name="photoURL"
 			type="file"
-			class="file-input file-input-bordered w-full max-w-xs"
+			class="file-input file-input-bordered w-full max-w-xs mx-auto"
 			accept="image/png, image/jpeg, image/gif, image/webp"
 		/>
 	</div>
