@@ -1,13 +1,13 @@
 <script>
-	export let icon = 'default';
-	export let url = 'foo';
-	export let title = 'some cool title';
+	export let icon = 'custom';
+	export let title = 'Svelte';
+	export let url = 'https://svelte.dev/';
 </script>
 
 <a
 	href={url}
-	class="stack text-center bg-base-300 flex justify-center items-center p-3 rounded-lg not-prose no-underline"
+	class="bg-base-200 no-underline rounded-lg p-3 flex justify-center items-center relative"
 >
-	<img src={`/icons/${icon}.png`} alt={icon} width="32" height="32" class="w-8" />
+	<img src={`/icons/${icon}.png`} alt={icon} width="32" height="32" class="w-8 absolute left-3" />
 	<span class="text-lg text-white font-bold">{title}</span>
 </a>
