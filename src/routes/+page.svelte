@@ -10,14 +10,14 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>link-sh.ar - a place for links</title>
 </svelte:head>
 
 <main class="flex-1">
 	<div class="hero my-10">
 		<div class="hero-content text-center">
 			<div class="w-full">
-				<h1 class="text-7xl font-bold">Link Share</h1>
+				<h1 class="text-7xl font-bold">Link-sh.ar</h1>
 				<p class="py-6 text-2xl">One simple link to share your entire portfolio</p>
 				<div class="flex mx-auto w-full sm:w-4/5 justify-center items-center gap-5">
 					{#if $userData}
