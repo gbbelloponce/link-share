@@ -10,6 +10,8 @@ declare global {
 			public: boolean;
 		}
 		interface UserLink {
+			id: string; // Used in SortableLinks component
+			index: string; // Used in SortableLinks component
 			title: string;
 			url: string;
 			icon: string;

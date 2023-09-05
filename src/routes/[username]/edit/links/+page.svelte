@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
-	import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+	import { doc, updateDoc, arrayUnion, arrayRemove, setDoc } from 'firebase/firestore';
 
 	import { db } from '$lib/config/firebase';
 	import { userData } from '$lib/data/userData';
 	import UserLink from '$lib/components/UserLink.svelte';
+	import SortableLinks from '$lib/components/SortableLinks.svelte';
 	import { authFirebaseUserData } from '$lib/data/authFirebaseUserData';
 
 	const icons = ['X', 'Instagram', 'YouTube', 'TikTok', 'LinkedIn', 'GitHub', 'OnlyFans', 'Custom'];
@@ -45,23 +46,25 @@
 		formData.set({ ...formDefaults });
 		showForm = false;
 	};
+
+	const sortList = (e: CustomEvent<App.UserLink[]>) => {
+		const newList = e.detail;
+		const userRef = doc(db, 'users', $authFirebaseUserData!.uid);
+		setDoc(userRef, { links: newList }, { merge: true });
+	};
 </script>
 
 <h2 class="card-title mb-5">Links</h2>
 
 {#if $userData?.links}
-	<ul class="w-full max-w-sm list-none">
-		{#each $userData.links as link}
-			<li class="my-2 group relative">
-				<UserLink {...link} />
-				<button
-					on:click={() => deleteLink(link)}
-					class="btn btn-xs btn-error invisible group-hover:visible transition-all absolute -right-5 -top-1"
-					>Delete</button
-				>
-			</li>
-		{/each}
-	</ul>
+	<SortableLinks list={$userData.links} on:sort={sortList} let:link>
+		<UserLink {...link} />
+		<button
+			on:click={() => deleteLink(link)}
+			class="btn btn-xs btn-error invisible group-hover:visible transition-all absolute -right-5 -top-1"
+			>Delete</button
+		>
+	</SortableLinks>
 {/if}
 
 {#if showForm}
