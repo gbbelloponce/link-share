@@ -46,10 +46,7 @@
 			photoURL: $authFirebaseUserData!.photoURL,
 			public: true,
 			bio: 'Hello there! Here are all my links',
-			links: [
-				{ title: 'Svelte', url: 'https://svelte.dev/', icon: 'custom' },
-				{ title: 'Firebase', url: 'https://firebase.google.com/', icon: 'custom' }
-			]
+			links: []
 		});
 
 		await batch.commit();
