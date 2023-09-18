@@ -12,5 +12,7 @@
 <div class="min-h-screen flex flex-col">
 	<Navbar />
 	<Alert />
-	<slot />
+	<div class="flex-1 flex flex-col">
+		<slot />
+	</div>
 </div>

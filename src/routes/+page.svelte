@@ -32,3 +32,13 @@
 		</div>
 	</div>
 </main>
+
+<footer class="absolute bottom-0 right-0 px-3 py-3">
+	<a
+		class="text-xs link"
+		href="https://github.com/gbbelloponce/link-share/issues/new"
+		target="_blank"
+	>
+		Send a Suggestion</a
+	>
+</footer>
