@@ -8,7 +8,17 @@
 	import SortableLinks from '$lib/components/SortableLinks.svelte';
 	import { authFirebaseUserData } from '$lib/data/authFirebaseUserData';
 
-	const icons = ['X', 'Instagram', 'YouTube', 'TikTok', 'LinkedIn', 'GitHub', 'OnlyFans', 'Custom'];
+	const icons = [
+		'X',
+		'Instagram',
+		'YouTube',
+		'TikTok',
+		'Twitch',
+		'LinkedIn',
+		'GitHub',
+		'OnlyFans',
+		'Custom'
+	];
 
 	let showForm = false;
 	const formDefaults = {
